@@ -1,0 +1,81 @@
+blocks:
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - transform_data
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: load_data_from_api
+  retry_config: null
+  status: executed
+  timeout: null
+  type: data_loader
+  upstream_blocks: []
+  uuid: load_data_from_api
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - write_to_duckdb
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: transform_data
+  retry_config: null
+  status: executed
+  timeout: null
+  type: transformer
+  upstream_blocks:
+  - load_data_from_api
+  uuid: transform_data
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    data_provider: duckdb
+    data_provider_profile: default
+    data_provider_schema: magic
+    data_provider_table: restaurant_user_transactions
+    dbt: {}
+    export_write_policy: replace
+    limit: 1000
+    upstream_block_configuration:
+      transform_data:
+        table_name: ''
+    use_raw_sql: false
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: write_to_duckdb
+  retry_config: null
+  status: executed
+  timeout: null
+  type: data_exporter
+  upstream_blocks:
+  - transform_data
+  uuid: write_to_duckdb
+callbacks: []
+concurrency_config: {}
+conditionals: []
+created_at: '2023-10-05 18:06:06.611144+00:00'
+data_integration: null
+description: null
+executor_config: {}
+executor_count: 1
+executor_type: null
+extensions: {}
+name: api_to_duckdb
+notification_config: {}
+retry_config: {}
+run_pipeline_in_one_process: false
+spark_config: {}
+tags: []
+type: python
+updated_at: '2023-10-05 18:13:59'
+uuid: api_to_duckdb
+widgets: []
